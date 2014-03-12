@@ -11,12 +11,12 @@ function UnCSSer(config) {
 
     this.options = plugins.uncss.options;
 
-    if(this.options = null)
+    if(this.options == null)
         this.options = {};
 
     this.files = plugins.uncss.files;
 
-    if(this.files = null)
+    if(this.files == null)
         this.files = {};
 }
 
@@ -24,8 +24,6 @@ UnCSSer.prototype.brunchPlugin = true;
 UnCSSer.prototype.type = 'stylesheet';
 
 UnCSSer.prototype.optimize = function(data, path, callback) {
-    console.log(data);
-
     uncss(this.files, this.options, function(error, output) {
         console.log(output);
     });
