@@ -10,14 +10,7 @@ function UnCSSer(config) {
         plugins = {};
 
     this.options = plugins.uncss.options;
-
-    if(this.options == null)
-        this.options = {};
-
     this.files = plugins.uncss.files;
-
-    if(this.files == null)
-        this.files = {};
 }
 
 UnCSSer.prototype.brunchPlugin = true;
