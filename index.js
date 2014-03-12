@@ -17,6 +17,8 @@ UnCSSer.prototype.brunchPlugin = true;
 UnCSSer.prototype.type = 'stylesheet';
 
 UnCSSer.prototype.optimize = function(data, path, callback) {
+    console.log(this.options);
+
     uncss(this.files, this.options, function(error, output) {
         console.log(output);
     });
