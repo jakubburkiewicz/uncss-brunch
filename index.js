@@ -1,3 +1,4 @@
+var sysPath = reuquire('path');
 var uncss = require('uncss');
 
 function UnCSSer(config) {
@@ -9,16 +10,14 @@ function UnCSSer(config) {
     if(plugins == null)
         plugins = {};
 
-    this.options = plugins.uncss.options;
-    this.files = plugins.uncss.files;
+    this.options = plugins.uncss.options ? extend({}, plugins.uncss.options) : {};
+    this.files = plugins.uncss.files ? extend({}, plugins.uncss.files) : {};
 }
 
 UnCSSer.prototype.brunchPlugin = true;
 UnCSSer.prototype.type = 'stylesheet';
 
 UnCSSer.prototype.optimize = function(data, path, callback) {
-    console.log(this.options);
-
     uncss(this.files, this.options, function(error, output) {
         console.log(output);
     });
