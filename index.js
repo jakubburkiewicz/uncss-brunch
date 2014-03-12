@@ -1,4 +1,4 @@
-var sysPath = reuquire('path');
+var sysPath = require('path');
 var uncss = require('uncss');
 
 function UnCSSer(config) {
