@@ -1,0 +1,18 @@
+{
+    "name": "uncss-brunch",
+    "version": "0.0.1",
+    "description": "NPM Package for uncss-brunch",
+    "homepage": "https://github.com/jakubburkiewicz/uncss-brunch",
+    "license": "MIT",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/jakubburkiewicz/uncss-brunch"
+    },
+    "author": {
+        "name": "Jakub Burkiewicz",
+        "email": "jakub@burkiewicz.eu"
+    },
+    "dependencies": {
+        "uncss": "~0.7.9"
+    }
+}
