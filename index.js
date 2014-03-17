@@ -1,5 +1,13 @@
-var sysPath = require('path');
 var uncss = require('uncss');
+
+var extend = function(object, source) {
+    var value;
+    for (var key in source) {
+        value = source[key];
+        object[key] = (typeof value === 'object' && !(value instanceof RegExp)) ? (Array.isArray(value) ? value.slice() : extend({}, value)) : value;
+    }
+    return object;
+};
 
 function UnCSSer(config) {
     if(config == null)
@@ -10,16 +18,23 @@ function UnCSSer(config) {
     if(plugins == null)
         plugins = {};
 
-    this.options = plugins.uncss.options ? extend({}, plugins.uncss.options) : {};
-    this.files = plugins.uncss.files ? extend({}, plugins.uncss.files) : {};
+    if(plugins.uncss != null) {
+        this.options = plugins.uncss.options ? extend({}, plugins.uncss.options) : {};
+        this.files = plugins.uncss.files ? extend([], plugins.uncss.files) : [];
+    }
 }
 
 UnCSSer.prototype.brunchPlugin = true;
 UnCSSer.prototype.type = 'stylesheet';
+UnCSSer.prototype.extension = 'css';
 
 UnCSSer.prototype.optimize = function(data, path, callback) {
     uncss(this.files, this.options, function(error, output) {
-        console.log(output);
+        var optimized = output;
+
+        return process.nextTick(function() {
+            return callback(error, optimized || data);
+        });
     });
 };
 
