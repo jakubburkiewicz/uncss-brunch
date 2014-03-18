@@ -1,7 +1,7 @@
 {
     "name": "uncss-brunch",
     "version": "0.1.0",
-    "description": "NPM Package for uncss-brunch",
+    "description": "Adds UnCSS support to brunch.",
     "homepage": "https://github.com/jakubburkiewicz/uncss-brunch",
     "license": "MIT",
     "repository": {
