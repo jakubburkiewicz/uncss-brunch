@@ -15,8 +15,10 @@ function UnCSSer(config) {
 
     var plugins = config.plugins;
 
-    if(plugins == null)
+    if(plugins == null) {
         plugins = {};
+        plugins.uncss = {};
+    }
 
     if(plugins.uncss != null) {
         this.options = plugins.uncss.options ? extend({}, plugins.uncss.options) : {};
@@ -29,13 +31,25 @@ UnCSSer.prototype.type = 'stylesheet';
 UnCSSer.prototype.extension = 'css';
 
 UnCSSer.prototype.optimize = function(data, path, callback) {
-    uncss(this.files, this.options, function(error, output) {
-        var optimized = output;
+    if(this.options != null) {
+
+        if(this.files == null)
+            this.files = [];
+
+        uncss(this.files, this.options, function(error, output) {
+            var optimized = output;
+
+            return process.nextTick(function() {
+                return callback(error, optimized || data);
+            });
+        });
+    } else {
+        error = "UnCSS: Configuration missed."
 
         return process.nextTick(function() {
-            return callback(error, optimized || data);
+            return callback(error, data);
         });
-    });
+    }
 };
 
 module.exports = UnCSSer;
