@@ -22,7 +22,16 @@ function UnCSSer(config) {
 
     if(plugins.uncss != null) {
         this.options = plugins.uncss.options ? extend({}, plugins.uncss.options) : {};
-        this.files = plugins.uncss.files ? extend([], plugins.uncss.files) : [];
+
+        if('function' === typeof plugins.uncss.files) {
+            this.files = plugins.uncss.files;
+        }
+        else if(plugins.uncss.files) {
+            this.files = extend([], plugins.uncss.files);
+        }
+        else {
+            this.files = [];
+        }
     }
 }
 
@@ -33,17 +42,32 @@ UnCSSer.prototype.extension = 'css';
 UnCSSer.prototype.optimize = function(data, path, callback) {
     if(this.options != null) {
 
-        if(this.files == null)
+        if(this.files == null) {
             this.files = [];
+        }
 
-        uncss(this.files, this.options, function(error, output) {
-            var optimized = output;
+        var optimize = function(files) {
+            uncss(files, this.options, function(error, output) {
+                var optimized = output;
 
-            return process.nextTick(function() {
-                return callback(error, optimized || data);
+                return process.nextTick(function() {
+                    return callback(error, optimized || data);
+                });
             });
-        });
-    } else {
+        }
+        .bind(this);
+
+        if('function' === typeof this.files) {
+            this.files(path, function(err, files) {
+                if(err) { callback(err, data); }
+                else { optimize(files); }
+            });
+        }
+        else {
+            optimize(this.files);
+        }
+    } 
+    else {
         error = "UnCSS: Configuration missed."
 
         return process.nextTick(function() {
