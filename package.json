@@ -13,6 +13,6 @@
         "email": "jakub@burkiewicz.eu"
     },
     "dependencies": {
-        "uncss": "~0.7.9"
+        "uncss": "~0.12.1"
     }
 }
