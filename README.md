@@ -12,9 +12,11 @@ If you want to have both:  unused CSS removed and code file minfied, check my ot
 
 ### Installation
 
-Install the plugin via npm with `npm install --save uncss-brunch`.
+Install the plugin via npm:
 
-Or add it to `package.json` dependencies: `"uncss-brunch":"1.0.0"`
+```
+npm install --save uncss-brunch // Adds it to your package.json dependencies
+```
 
 ### Config
 
